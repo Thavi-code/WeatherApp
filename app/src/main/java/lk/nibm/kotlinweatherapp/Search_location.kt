@@ -44,7 +44,7 @@ class SearchLocation : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                // Handle text change if needed
+
                 return false
             }
         })
@@ -78,12 +78,12 @@ class SearchLocation : AppCompatActivity() {
                     val main = jsonObj.getJSONObject("main")
                     val temperature = main.getString("temp")
 
-                    // Extract weather description
+
                     val weatherArray = jsonObj.getJSONArray("weather")
                     val weatherObject = weatherArray.getJSONObject(0)
                     val weatherDescription = weatherObject.getString("description")
 
-                    // Display data in TextViews
+
                     findViewById<TextView>(R.id.address).text = enteredCity
                     findViewById<TextView>(R.id.temp).text = "$temperature°C"
                     findViewById<TextView>(R.id.weatherDescription).text = "$weatherDescription"

@@ -8,7 +8,7 @@ object WeatherIconHelper {
             weatherDescription.contains("rain") -> R.drawable.rainy
             weatherDescription.contains("light rain") -> R.drawable.rainy
             weatherDescription.contains("thunderstorm") -> R.drawable.thunderstorm
-            // Add more conditions for other weather descriptions
+
             else -> R.drawable.sunny
         }
     }

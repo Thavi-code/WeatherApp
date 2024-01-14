@@ -23,7 +23,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    var CITY: String = "Colombo"  // Default city
+    var CITY: String = "Colombo"
     val API: String = "b71ecedd9c8b464a07bfbb6576a34a12"
 
     val locationManager by lazy {
@@ -77,11 +77,10 @@ class MainActivity : AppCompatActivity() {
                     locationListener
                 )
             } else {
-                // Handle the case where location permission is not granted
-                // You may want to request the permission again or show a message to the user
+
             }
         } else {
-            // GPS is not enabled, prompt the user to enable it
+
             startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
         }
     }
@@ -93,7 +92,7 @@ class MainActivity : AppCompatActivity() {
             val longitude = location.longitude
 
             val city = getCityName(latitude, longitude)
-            CITY = city // Update CITY variable with the current city
+            CITY = city
             weatherTask().execute()
 
             locationManager.removeUpdates(this)
@@ -105,12 +104,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getCityName(latitude: Double, longitude: Double): String {
-        return "Colombo"  // Replace with your actual implementation for obtaining city name
+        return "Colombo"
     }
 
     companion object {
         const val LOCATION_PERMISSION_REQUEST_CODE = 100
-        const val LOCATION_UPDATE_INTERVAL = 1000L * 60L * 60L // Update location every 1 hour
+        const val LOCATION_UPDATE_INTERVAL = 1000L * 60L * 60L
     }
 
     inner class weatherTask() : AsyncTask<String, Void, String>() {
@@ -136,7 +135,7 @@ class MainActivity : AppCompatActivity() {
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
             try {
-                /* Extracting JSON returns from the API */
+
                 val jsonObj = JSONObject(result)
                 val main = jsonObj.getJSONObject("main")
                 val sys = jsonObj.getJSONObject("sys")
@@ -155,7 +154,7 @@ class MainActivity : AppCompatActivity() {
                 val windSpeed = wind.getString("speed")
                 val weatherDescription = weather.getString("description")
                 val address = jsonObj.getString("name")+", "+sys.getString("country")
-                /* Populating extracted data into our views */
+
                 findViewById<TextView>(R.id.address).text = address
                 findViewById<TextView>(R.id.updated_at).text = updatedAtText
                 findViewById<TextView>(R.id.status).text = weatherDescription.capitalize()
@@ -169,7 +168,7 @@ class MainActivity : AppCompatActivity() {
                 findViewById<TextView>(R.id.wind).text = windSpeed
                 findViewById<TextView>(R.id.pressure).text = pressure
                 findViewById<TextView>(R.id.humidity).text = humidity
-                /* Views populated, Hiding the loader, Showing the main design */
+
                 findViewById<ProgressBar>(R.id.loader).visibility = View.GONE
                 findViewById<RelativeLayout>(R.id.mainContainer).visibility = View.VISIBLE
             } catch (e: Exception) {
